@@ -1,10 +1,10 @@
 # INPUT
 # Define the input excel
-infile = r"Peru_pdf_clip.xlsx"
+infile = "Peru_pdf_clip.xlsx"
 
 # OUTPUT
 # Define the output excel
-outfile = r"peru_output.xlsx"
+outfile = "peru_output.xlsx"
 
 #========================================================
 
@@ -32,11 +32,16 @@ row_number_write = 0 #initiate an integer to indicate the row index in the outpu
 for each_row in infile_sheet:
     print('looping row#: ' + str(row_number))
     
+    for each_cell in each_row:
+        if each_cell.value == "código":
+            
+
     #here we will need to
     # check if the row has a value
+
     # if that value is 'código'
     # then skip to the next row (to avoid including header values) at the same column
     # then write that cell's value to the output file
     # then continue for the next 8 cells (9 per row in total)
     # then, if next row cell with same column value as 'código' is NOT empty, move to reading next row for 9 cells
-        # if it is empty, start loop again to find next cell with value 'código'
+     # if it is empty, start loop again to find next cell with value 'código'

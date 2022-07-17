@@ -47,12 +47,11 @@ for each_row in infile_sheet:
 
 # now we will clean up this output
 # we will create one header and remove all other headers and empty rows
-for each_row in outfile_sheet:
 
+# first we will define a function to concatenate the output and run this function after cleaning up the output
+for each_row in outfile_sheet: #in progress
 
-
-# next we will 
-
+# finally we will have to convert northing/easting coords to lat/long
 
 outfile_obj.close() #close output file
 
