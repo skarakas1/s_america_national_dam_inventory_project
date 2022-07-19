@@ -36,10 +36,11 @@ for each_row in infile_sheet:
 
             ###outfile_sheet.write_row(row_number_write, 0, row)
 
-    if int(len(row)) > 1:
-        if str(row[0]) != "Código":
+    if int(len(row)) > 1: #this ignores rows that just contain page number
+        if str(row[0]) != "Código": #this ignores header rows
             for each_cell in row:
-                outfile_sheet.write_row(row_number_write, 0, row)
+                outfile_sheet.write_row(row_number_write, 0, row)#write relevant rows to output
+            row_number_write = row_number_write + 1
         else:
             print("header row")
     else:
@@ -47,7 +48,6 @@ for each_row in infile_sheet:
 
     row_number = row_number + 1 #count which row we are reading from the input spreadsheet.
 
-    row_number_write = row_number_write + 1
 
 outfile_obj.close() #close output file
 
