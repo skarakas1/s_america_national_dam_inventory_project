@@ -38,12 +38,12 @@
 
 
 # Define the input & output excel docs
-infile = r"D:\Research\Projects\SWOT\Dam_inventory_collection\Dam_harmonization\Codes\Peru_pdf_clip.xlsx"
-outfile = r"D:\Research\Projects\SWOT\Dam_inventory_collection\Dam_harmonization\Codes\Peru_formatted.xlsx"
+#infile = r"D:\Research\Projects\SWOT\Dam_inventory_collection\Dam_harmonization\Codes\Peru_pdf_clip.xlsx"
+#outfile = r"D:\Research\Projects\SWOT\Dam_inventory_collection\Dam_harmonization\Codes\Peru_formatted.xlsx"
 
 #these can be edited back in if using GitHub project folder in VSCode
-#infile = "Peru_pdf_clip_QCed.xlsx"
-#outfile = "Peru_test_output.xlsx"
+infile = "Peru_pdf_clip_QCed.xlsx"
+outfile = "Peru_test_output.xlsx"
 
 # Important packages and functions
 import sys, datetime, xlsxwriter, openpyxl
