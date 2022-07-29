@@ -1,5 +1,5 @@
-infile = "bolivia_output_1.xlsx"
-outfile = "bolivia_output_2_summary.xlsx"
+infile = "Bolivia/bolivia_output_1.xlsx"
+outfile = "Bolivia/bolivia_output_2_summary.xlsx"
 
 # Important packages and functions
 import sys, re, datetime, xlsxwriter, openpyxl
@@ -14,13 +14,15 @@ infile_sheet = infile_obj.active #active spreadsheet of this excel
 outfile_obj = xlsxwriter.Workbook(outfile) #see more: https://xlsxwriter.readthedocs.io/
 outfile_sheet = outfile_obj.add_worksheet("output_1") #any name you want to give to the output spreadsheet
 
+outfile_sheet.write_row(0,0, tuple(['Code','Name']))
+
 # Loop through each record in selected range
 row_number = 0 #initiate an integer to indicate the row index in the input spreadsheet.
 row_number_write = 0 #initiate an integer to indicate the row index in the output spreadsheet. 
 
 
 #for loop to read cleaned outfile
-for each_row in outfile_sheet:
+for each_row in infile_sheet:
 
     print('looping row#: ' + str(row_number))
 
@@ -28,17 +30,19 @@ for each_row in outfile_sheet:
 
     for cell in each_row:
 
-        if cell.value:
-
-            cell_value = str(cell.value)
-            code_check = re.search(r"[A-Z][A-Z][A-Z]\-[A-Z]\-\d\d\d", cell_value)
+        cell_value = str(cell.value) # read cell value as string
+        code_check = re.search(r"[A-Z][A-Z]\-[A-Z]\-\d\d\d", cell_value) # reg ex to check for 'code' values which should have a format like 'AB-X-123'
        
-            if code_check:
-                print(str(cell.value))
+        if code_check: # check each cell for this regex
+            print(str(cell.value))#check in terminal to see if working
 
-                output_row = [cell.value, next(iter(each_row)).value]# i don't think this is going to work while there are empty cells resulting from column merges in the document
+            output_row = [cell.value, next(iter(each_row)).value] # create a list with index 0 being the code then grabbing the 'next' cell, the name, as index 1
 
-                outfile_sheet.write_row(row_number_write, 0, output_row)
+            outfile_sheet.write_row(row_number_write, 0, output_row) # write an output file with column 1 - codes and column 2 - names
 
     row_number = row_number + 1
     row_number_write = row_number_write + 1
+
+outfile_obj.close()
+
+print('Script ends at: ' + str(datetime.datetime.now())) 
