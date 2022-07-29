@@ -28,6 +28,9 @@
 
 # !! Another note: in the input excel (and the original PDF), there are a few pairs of dams whose records are stacked on each other in ONE row. 
 # Cases include: dam IDs 59002 and 59004; IDs 61004 and 61005; IDs 69009 and 69011.
+
+#^^^ done, see 'Peru_pdf_clip_QCed.xlsx - SK
+
 # Please clean up the input excel (breaking them to different rows) before running the script. 
 # The number of the final cleaned-up dams should be 743 (excluding the header).  
 
@@ -37,6 +40,10 @@
 # Define the input & output excel docs
 infile = r"D:\Research\Projects\SWOT\Dam_inventory_collection\Dam_harmonization\Codes\Peru_pdf_clip.xlsx"
 outfile = r"D:\Research\Projects\SWOT\Dam_inventory_collection\Dam_harmonization\Codes\Peru_formatted.xlsx"
+
+#these can be edited back in if using GitHub project folder in VSCode
+#infile = "Peru_pdf_clip_QCed.xlsx"
+#outfile = "Peru_test_output.xlsx"
 
 # Important packages and functions
 import sys, datetime, xlsxwriter, openpyxl
