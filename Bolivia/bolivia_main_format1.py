@@ -1,3 +1,9 @@
+# [description]
+# This script prepares raw dam register data from the PROAGRO Inventario Nacional de Presas for Bolivia to then format for GIS-importable format.
+# Authors: Sam Karakas
+# Contact: skarakas21@g.ucla.edu
+# Last update: 07/29/2022
+
 infile1 = "Bolivia/presas-inventario_a_clip.xlsx"
 infile2 = "Bolivia/inventario_b_clip.xlsx"
 outfile = "Bolivia/bolivia_main_output_1.xlsx"
