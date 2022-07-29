@@ -1,8 +1,8 @@
 # [Description] ------------------------------
 # This script formatted the raw dam register from Autoridad Nacional del Agua for Peru to GIS-importable format.
-# Authors: xxx, xxx, xxx, and Jida Wang
-# Contact: xxx@g.ucla.edu
-# Last update: 07/26/2022
+# Authors: Sam Karakas and Jida Wang
+# Contact: skarakas21@g.ucla.edu
+# Last update: 07/29/2022
 
 # Reference:
 # Autoridad Nacional del Agua: Inventario de Presas en el Peru, Lima,
