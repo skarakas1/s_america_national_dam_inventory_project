@@ -37,7 +37,7 @@ for each_row in infile_sheet:
             print(str(cell.value))#check in terminal to see if working
 
             output_row = [cell.value, next(iter(each_row)).value] # create a list with index 0 being the code then grabbing the 'next' cell, the name, as index 1
-
+            
             outfile_sheet.write_row(row_number_write, 0, output_row) # write an output file with column 1 - codes and column 2 - names
 
     row_number = row_number + 1
