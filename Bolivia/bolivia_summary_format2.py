@@ -1,4 +1,4 @@
-infile = "Bolivia/bolivia_output_1.xlsx"
+infile = "Bolivia/bolivia_output_1_summary.xlsx"
 outfile = "Bolivia/bolivia_output_2_summary.xlsx"
 
 # Important packages and functions
