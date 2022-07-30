@@ -26,6 +26,7 @@ row_number = 0 #initiate an integer to indicate the row index in the input sprea
 row_number_write = 0 #initiate an integer to indicate the row index in the output spreadsheet.
 
 #read infile, unmerge, skip empty cells
+#then, write relevant cells to the output
 for each_row in infile_sheet1:
     print('looping row#: ' + str(row_number))
     row = []
