@@ -7,9 +7,11 @@
 # define input & output docs
 infile = "Bolivia/bolivia_main_output_1.xlsx"
 outfile = "Bolivia/bolivia_main_output_2.xlsx"
+summary = "Bolivia/bolivia_output_2_summary.xlsx"
+# !!!! still debugging bolivia_summary_format2.py which outputs the file we are calling for 'summary'
 
 # import packages
-import sys, datetime, xlsxwriter, openpyxl
+import sys, datetime, xlsxwriter, openpyxl, re
 
 print('Script starts at: ' + str(datetime.datetime.now()))
 
@@ -23,21 +25,24 @@ outfile_obj = xlsxwriter.Workbook(outfile) #see more: https://xlsxwriter.readthe
 outfile_sheet = outfile_obj.add_worksheet("dams_subset") #add worksheet to xlsx file
 
 # create a header row
-# we will take 'code' and 'name from the summary file later
 # from the main data, the columns will be:
 # type, area, height, crown length, capacity, crown dimension (?), use, municipality, lat, long, watershed, river
+outfile_sheet.write_row(0,0, tuple(['Code','Name','Type','Use','Area','Municipality','Height','Latitude','Longitude','Crown_length','Capacity','Watershed','Crown Dimension','River']))
+# we will take 'code' and 'name' from the summary file later
 
+row_number = 0
+output_row = []
 output_list = []
 
 for each_row in infile:
 
+    print('looping row#: ' + str(row_number))
+    flag = re.search("^Comentario", )
+    # !!! ^this needs to be filled in
     row = []
-    output_row = []
 
     for cell in each_row:
         if str(cell.value) == "Tipo de presa":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Uso":
             output_row.append(each_row(next()).value)
         elif str(cell.value) == "Uso":
             output_row.append(each_row(next()).value)
@@ -60,9 +65,29 @@ for each_row in infile:
         elif str(cell.value) == "Río de la presa":
             output_row.append(each_row(next()).value)
         #here we will check for a string starting with Comentarios: using regex
+        elif re.search("^Comentario", str(cell.value)):
+            output_list.append(output_row)
+            output_row = [] # reset output_row
         #this will tell us to move to the next dam
-            #then, if so, we will add our list, 'output_row' to the list 'output_list'
-            #then, we will iterate through output list to write the output excel
-        
+        #then we will add our list, 'output_row' to the list 'output_list', storing the relevant values of each dam as a list
+    row_number += 1
+
+
+
+        #here we will write our output rows from the 'output_list'
+for dam in output_list:
+    row_number_write = 0
+    # we can add in code and name here, grabbing them from the summary excel file
+    outfile_sheet.write_row(row_number_write, 2, row)
+    row_number_write += 1
+
+outfile_obj.close() #close output file
+
+print('Script ends at: ' + str(datetime.datetime.now())) #print end time
+    
+
+
+
+
 
 
