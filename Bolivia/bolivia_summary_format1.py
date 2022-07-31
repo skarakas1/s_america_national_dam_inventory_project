@@ -30,6 +30,7 @@ for each_row in infile_sheet:
             outfile_sheet.write_row(row_number_write, 0, row)
         row_number = row_number + 1
         row_number_write = row_number_write + 1
+        print(row)
 
 outfile_obj.close()
 
