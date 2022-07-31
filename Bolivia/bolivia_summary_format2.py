@@ -36,7 +36,7 @@ for each_row in infile_sheet:
     for this_cell in row:
 
         cell_value = str(this_cell) # read cell value as string
-        print("cell value = " + cell_value)
+        #print("cell value = " + cell_value)
         code_check = re.search(r"[A-Z][A-Z]\-[A-Z]\-\d\d\d", cell_value) # reg ex to check for 'code' values which should have a format like 'AB-X-123'
        
         if code_check: # check each cell for this regex
@@ -53,4 +53,4 @@ for each_row in infile_sheet:
 
 outfile_obj.close()
 
-print('Script ends at: ' + str(datetime.datetime.now())) 
+print('Script ends at: ' + str(datetime.datetime.now()))
