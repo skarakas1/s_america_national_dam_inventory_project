@@ -24,61 +24,57 @@ infile_sheet = infile_obj.active #active spreadsheet of this excel
 outfile_obj = xlsxwriter.Workbook(outfile) #see more: https://xlsxwriter.readthedocs.io/
 outfile_sheet = outfile_obj.add_worksheet("dams_subset") #add worksheet to xlsx file
 
-# create a header row
-# from the main data, the columns will be:
-# type, area, height, crown length, capacity, crown dimension (?), use, municipality, lat, long, watershed, river
-outfile_sheet.write_row(0,0, tuple(['Code','Name','Type','Use','Area','Municipality','Height','Latitude','Longitude','Crown_length','Capacity','Watershed','Crown Dimension','River']))
-# we will take 'code' and 'name' from the summary file later
+# create a header row from the main data:
+outfile_sheet.write_row(0,0, tuple(['Code','Name','AreaQC','Type','Use','Area','Municipality','Height','Latitude','Longitude','Crown_length','Capacity','Watershed','Crown Dimension','River']))
+# we will take 'code' and 'name' and 'AreaQC' from the summary file later
 
 row_number = 0
-output_row = []
 output_list = []
+def append_output(a,b):
+    try:
+        output_row.append(a[a.index(b)+1])
+    except:
+        print("ERROR: EXPECTED CELL EMPTY")
+        output_row.append("n/a")
+non_special_headers = ["Uso","Área de la cuenca","Municipio","Altura de la presa","Longitud coronamiento","Capacidad de embalse","Cuenca de influencia","Cota coronamiento"]
 
-for each_row in infile:
 
+for each_row in infile_sheet:
+
+    #each_row_iterator = iter(each_row) # define iterator in order to use 'next' method in our for cell in each_row loop (called in append_output function)
     print('looping row#: ' + str(row_number))
-    flag = re.search("^Comentario", )
+    #flag = re.search("^Comentario", )
     # !!! ^this needs to be filled in
+    #row = []
     row = []
-
     for cell in each_row:
-        if str(cell.value) == "Tipo de presa":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Uso":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Área de la cuenca":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Municipio":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Altura de la presa":
-            output_row.append(each_row(next()).value)
-        # elif str(cell.value) == "Latitud\nLongitud":
+        if cell.value:
+            row.append(cell.value)
+    for this_cell in row:
+
+        cell_value = str(this_cell)
+
+        if cell_value == "Tipo de presa":
+            output_row = []
+            #output_row.append(row[row.index(cell_value)+1])
+            append_output(row,cell_value)
+        elif cell_value in non_special_headers:
+            append_output(row, cell_value)
+        #elif cell_value == "Latitud\nLongitud":
             #special case will need to parse string as this is a double row...
-        elif str(cell.value) == "Longitud coronamiento":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Capacidad de embalse":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Cuenca de influencia":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Cota coronamiento":
-            output_row.append(each_row(next()).value)
-        elif str(cell.value) == "Río de la presa":
-            output_row.append(each_row(next()).value)
-        #here we will check for a string starting with Comentarios: using regex
-        elif re.search("^Comentario", str(cell.value)):
+        elif cell_value == "Río de la presa":
+            append_output(row, cell_value)
             output_list.append(output_row)
-            output_row = [] # reset output_row
-        #this will tell us to move to the next dam
-        #then we will add our list, 'output_row' to the list 'output_list', storing the relevant values of each dam as a list
+            print(output_row)
     row_number += 1
 
+        #here we will write our output rows from the 'output_list' """
 
-
-        #here we will write our output rows from the 'output_list'
+print(output_list)
+row_number_write = 0
 for dam in output_list:
-    row_number_write = 0
     # we can add in code and name here, grabbing them from the summary excel file
-    outfile_sheet.write_row(row_number_write, 2, row)
+    outfile_sheet.write_row(row_number_write + 1, 3, output_list[row_number_write])
     row_number_write += 1
 
 outfile_obj.close() #close output file
